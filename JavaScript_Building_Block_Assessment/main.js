@@ -28,6 +28,6 @@ function btnClick() {
     } else {
         btn.setAttribute("class", "dark");
         btn.textContent = "Darken";
-        overlay.style.backgroundColor = "rgba(0,0,0,0)";
+        overlay.style.backgroundColor = "rgba(0,0,0,0t)";
     }
 }
