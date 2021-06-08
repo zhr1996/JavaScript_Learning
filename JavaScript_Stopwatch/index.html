@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Simple setInterval clock</title>
+    <style>
+        p {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="clock">00:00:00</p>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+
+    <script>
+        let stopInterval;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        let initialText = "00:00:00";
+
+        function startWatch() {
+            startButton.disabled = true;
+            stopInterval = setInterval(() => {
+                seconds += 1;
+                if (seconds >= 60) {
+                    minutes += 1;
+                    seconds = 0;
+                    if (minutes >= 60) {
+                        hours += 1;
+                        minutes = 0;
+                    }
+                }
+                let second_string = seconds.toString();
+                let minute_string = minutes.toString();
+                let hour_string = hours.toString();
+                if (seconds < 10) {
+                    second_string = "0" + second_string;
+                }
+                if (minutes < 10) {
+                    minute_string = "0" + minute_string;
+                }
+                if (hours < 10) {
+                    hour_string = "0" + hour_string;
+                }
+                document.querySelector('.clock').textContent = `${hour_string}:${minute_string}:${second_string}`;
+            }, 1000);
+        }
+        startButton = document.querySelector("#start");
+        stopButton = document.querySelector("#stop");
+        resetButton = document.querySelector("#reset");
+
+
+        startButton.addEventListener("click", startWatch);
+        stopButton.addEventListener("click", () => {
+            clearInterval(stopInterval);
+            startButton.disabled = false;
+        })
+        resetButton.addEventListener("click", () => {
+            clearInterval(stopInterval);
+            document.querySelector('.clock').textContent = initialText;
+            startButton.disabled = false;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+
+        })
+    </script>
+</body>
+
+</html>
